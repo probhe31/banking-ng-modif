@@ -1,0 +1,6 @@
+---
+applications:
+- name: banking-ng
+  buildpack: staticfile_buildpack
+  memory: 256M
+  instances: 1

@@ -1,0 +1,33 @@
+language: node_js
+node_js:
+- '8'
+branches:
+  only:
+  - master
+before_script:
+- npm install -g --silent @angular/cli
+script:
+- ng build --prod
+- chmod +x dist
+- chmod +x dist/banking
+before_deploy:
+- ls
+- ls dist
+- ls dist/banking
+- sudo cp manifest.yml dist/banking
+- sudo cp Staticfile dist/banking
+- ls dist/banking
+- cd dist/banking
+deploy:
+  provider: cloudfoundry
+  username: efrainbautista@hotmail.com
+  password:
+    secure: KieeYC0M889/7RnN7zBYeuX9yDmWwh54oEnnIMsrntKRhCyYFBGKSK40JD4iCREJYwj++uT+0lfxd6Q9T+/ww7M/kNDeFIef7q1fDDFP6MneUaO+CrOip5MlE3Ng48mPUIhuyOlVge1AjSxMCE8MSgzsH5POPxRKvzgFhCenJ0ERkjChlJ3Rcq3QUSJT4JqYM4UH+74GegpNQMCB/2LMUPk7CDlmx/7CM+ZrjReJDfZMLTyQCOtuaF882dn5fWz8LJHYh26EC+kULldMc2qzNmtE5BNYk0r+q7Yvj9pfCde9KrvZ466ZZP+UWFewvNMTwUrgP9JINpCiU4JovjLgtMwBzravVwF626FQu4ftcVukXJAfKT3rJ1dOjn+9edcn7TxsdyXT3BQskcHa4LytfqRyiL3kX7yCpcQ1E6+RE8H4XgdTeqFcymexLIgQMahNQVJMYEOGoU+m5VuDMKcMIM47NWbFlgCHN53nmPE9o7yTuFgn5f2ARi4aoP7LkOsQm1V5l7itbwuKnANSNfaL05fIw2hr/LzDCFTlLA6UpjW6nkpvkKocB49jU5QKG55ARgeUObi+TWpiHnGCUBYAv7OPS42H5ZkPUP+7ITFGDCXcjH4XFZQE4ZD9sPiYSH3qC/mW+E6vYin+8Km78DRgG39KmuKPg0xgRucx5BMOcdU=
+  api: https://api.run.pivotal.io
+  organization: research-org
+  space: development
+  skip_cleanup: true
+notifications:
+  email:
+    on_failure: change
+    on_success: change

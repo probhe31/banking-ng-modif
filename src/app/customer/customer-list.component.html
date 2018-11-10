@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Customer List</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-primary" (click)="addCustomer()" *bankingHasClaim="'addCustomer'">
+      Add New Customer
+    </button>
+  </div>
+</div>
+
+<div *ngIf="customers && customers.length">
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Edit</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>
+          <a href="#" class="btn btn-primary" [routerLink]="['/customerDetail', customer.id]">
+            <i class="glyphicon glyphicon-pencil"></i>
+          </a>
+        </td>
+        <td>{{customer.firstName}}</td>
+        <td>{{customer.lastName}}</td>
+        <td>
+          <button (click)="deleteCustomer(customer.id)" class="btn btn-danger">
+            <i class="glyphicon glyphicon-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

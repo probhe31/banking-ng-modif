@@ -1,0 +1,35 @@
+<nav class="navbar nav-justified navbar-fixed-top
+            navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a routerLink="/dashboard" class="navbar-brand">
+        Home ADS
+      </a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li>
+        <ng-container *ngIf="securityService.isAuthenticated()">
+          <a routerLink="/customers" *bankingHasClaim="'accessCustomers'">Customers</a>
+        </ng-container>
+      </li>
+      <li>
+        <ng-container *ngIf="securityService.isAuthenticated()">
+          <a routerLink="/accounts" *bankingHasClaim="'accessAccounts'">Bank Accounts</a>
+        </ng-container>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <a routerLink="login" *ngIf="!securityService.isAuthenticated()">
+          Login
+        </a>
+        <a href="#" (click)="logout()" *ngIf="securityService.isAuthenticated()">
+          Logout {{securityService.getUserName()}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container body-content">
+  <router-outlet></router-outlet>
+</div>
